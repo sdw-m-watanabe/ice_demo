@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet"><style>body{margin:0;background:#2F4A3A;overscroll-behavior:none}a{color:inherit;text-decoration:none}a:hover{color:inherit}</style></helmet>
+<div style="height:100dvh;background:#2F4A3A;display:flex;justify-content:center;font-family:'Zen Maru Gothic',sans-serif">
+  <div onPointerDown="{{ onDown }}" onPointerUp="{{ onUp }}" style="position:relative;width:100%;max-width:430px;height:100dvh;overflow:hidden;background:#1F3327">
+    <div style="position:absolute;top:0;bottom:0;left:0;width:200%;display:flex;transform:translateX({{ trackX }});transition:transform .55s cubic-bezier(.5,0,.2,1)"><sc-for list="{{ panes }}" as="p" hint-placeholder-count="2"><div ref="{{ p.ref }}" onScroll="{{ p.onScroll }}" style="position:relative;width:50%;height:100%;overflow-y:scroll;scroll-snap-type:y mandatory;touch-action:pan-y;scrollbar-width:none;overscroll-behavior:contain">
+      <section data-screen-label="Hero" style="position:relative;height:100%;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;display:{{ p.heroDisp }};flex-direction:column;box-sizing:border-box;padding:calc(72px + env(safe-area-inset-top)) 14px calc(18px + env(safe-area-inset-bottom));background:#2F4A3A;color:#F4E7B5">
+          <div style="position:relative;flex:1;min-height:0;border:6px solid #F4E7B5;border-radius:28px;overflow:hidden;background:#1F3327"><sc-for list="{{ heroSlides }}" as="hs" hint-placeholder-count="4"><img src="{{ hs.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ hs.op }};transform:scale({{ hs.sc }});transition:opacity .9s ease,transform 5s ease-out"></sc-for></div>
+          <div style="flex:none;padding:16px 4px 0;text-align:center"><div style="font-size:13px;font-weight:700;letter-spacing:.2em">Natural &amp; Delicious</div><h1 style="font-family:'Alfa Slab One',serif;font-weight:400;font-size:34px;line-height:1;margin:8px 0 16px">NASU ICE CREAM</h1><button onClick="{{ toFlavors }}" style="width:100%;border:0;background:#F4E7B5;color:#2F4A3A;font-family:inherit;font-weight:900;font-size:16px;border-radius:99px;padding:16px;cursor:pointer">味をえらぶ ↓</button></div>
+        </section><sc-for list="{{ p.slides }}" as="s" hint-placeholder-count="3">
+        <section data-screen-label="{{ s.label }}" style="position:relative;height:100%;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;display:flex;flex-direction:column;box-sizing:border-box;padding-top:calc(132px + env(safe-area-inset-top));background:{{ s.a }}">
+          <div style="position:absolute;inset:0;background:{{ s.b }};clip-path:{{ clip }}"></div>
+          <div style="position:absolute;right:-2%;top:9%;font-family:'Alfa Slab One',serif;font-size:150px;line-height:1;color:{{ s.fa }};opacity:.16">{{ s.no }}</div>
+          <h2 style="display:{{ headDisp }};position:relative;flex:none;margin:0 6%;white-space:pre-line;font-weight:900;font-size:clamp(17px,2.8dvh,22px);line-height:1.6;letter-spacing:.06em;color:{{ s.fa }};opacity:{{ s.op }};transform:translateY({{ s.ty }});transition:opacity .6s ease .15s,transform .6s ease .15s">{{ s.head }}</h2>
+          <div style="position:relative;flex:1;min-height:120px;margin:10px 0;container-type:size"><sc-for list="{{ s.subs }}" as="u" hint-placeholder-count="3">
+            <div style="position:absolute;left:{{ u.x }};top:{{ u.y }};width:{{ u.w }};aspect-ratio:1;border-radius:47% 53% 51% 49% / 50% 46% 54% 50%;overflow:hidden;opacity:{{ s.op }};transform:{{ u.tf }};transition:opacity .7s ease {{ u.delay }},transform .9s cubic-bezier(.2,.7,.2,1) {{ u.delay }};box-shadow:0 10px 22px rgba(0,0,0,.2)"><img src="{{ u.img }}" alt="" style="width:100%;height:100%;object-fit:cover;object-position:{{ u.pos }};transform:scale({{ u.zoom }});display:block"></div>
+          </sc-for>
+          <a href="{{ s.href }}" style="position:absolute;left:50%;top:50%;width:min(72cqw,88cqh);aspect-ratio:1;border-radius:47% 53% 51% 49% / 50% 46% 54% 50%;overflow:hidden;opacity:{{ s.op }};transform:translate(-50%,-50%) scale({{ s.sc }});transition:opacity .7s ease,transform .9s cubic-bezier(.2,.7,.2,1);box-shadow:0 24px 44px rgba(0,0,0,.28)"><img src="{{ s.img }}" alt="{{ s.en }}" style="width:100%;height:100%;object-fit:cover;display:block"></a></div>
+          <div style="position:relative;flex:none;margin:0 6%;padding-bottom:calc(78px + env(safe-area-inset-bottom));color:{{ s.fb }};opacity:{{ s.op }};transform:translateY({{ s.ty }});transition:opacity .6s ease .3s,transform .6s ease .3s">
+            <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:12px">
+              <div style="min-width:0"><div style="font-family:'Alfa Slab One',serif;font-size:26px;line-height:1.05">{{ s.en }}</div><div style="font-weight:900;font-size:15px;margin-top:4px">{{ s.jp }}</div></div>
+              <div style="font-family:'Alfa Slab One',serif;font-size:26px;line-height:1">{{ s.price }}</div>
+            </div>
+            <p style="display:{{ descDisp }};font-weight:500;font-size:14px;line-height:1.7;margin:-4px 0 14px;text-wrap:pretty">{{ s.desc }}</p>
+            <a href="{{ s.href }}" style="display:block;text-align:center;background:{{ s.fb }};color:{{ s.b }};font-weight:900;font-size:16px;border-radius:99px;padding:16px" style-active="opacity:.8">この味を買う →</a>
+            <div style="display:{{ descDisp }};text-align:center;font-weight:700;font-size:12px;letter-spacing:.14em;margin-top:10px">{{ s.hint }}</div>
+          </div>
+        </section></sc-for></div></sc-for></div>
+    <footer style="opacity:{{ footOp }};transform:translateY({{ footY }});pointer-events:{{ footPe }};transition:opacity .4s ease,transform .4s ease;position:absolute;left:14px;right:14px;bottom:calc(10px + env(safe-area-inset-bottom));display:flex;gap:4px;background:#2F4A3A;border-radius:99px;padding:4px;box-shadow:0 8px 20px rgba(0,0,0,.25)"><sc-for list="{{ tabs }}" as="t" hint-placeholder-count="2"><button onClick="{{ t.go }}" style="flex:1;border:0;border-radius:99px;padding:12px 0;font-family:inherit;font-weight:900;font-size:15px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};transition:background-color .3s">{{ t.label }}</button></sc-for></footer>
+    <a href="#coupon" style="position:absolute;left:-6%;right:-6%;top:calc(70px + env(safe-area-inset-top));height:44px;box-sizing:border-box;overflow:hidden;display:{{ adDisp }};align-items:center;justify-content:center;gap:14px;background:#F4E7B5;color:#2F4A3A;border-top:2px dashed #C4261D;border-bottom:2px dashed #C4261D;outline:4px solid #F4E7B5;box-shadow:0 8px 18px rgba(0,0,0,.25);font-weight:900;font-size:15px;letter-spacing:.08em;white-space:nowrap;opacity:{{ ribOp }};transform:translateX({{ ribX }}) rotate(-2deg);pointer-events:{{ ribPe }};transition:opacity .4s ease,transform .7s cubic-bezier(.2,.8,.2,1)" style-hover="color:#2F4A3A"><span style="font-family:'Alfa Slab One',serif;font-weight:400;font-size:12px;letter-spacing:.12em;background:#C4261D;color:#F4E7B5;border-radius:99px;padding:5px 10px">FREE SHIPPING</span><span><span style="color:#C4261D">送料無料</span>クーポン配信中 →</span><span style="font-family:'Alfa Slab One',serif;font-weight:400;font-size:12px;letter-spacing:.12em;background:#C4261D;color:#F4E7B5;border-radius:99px;padding:5px 10px">FREE SHIPPING</span></a>
+    <header style="position:absolute;left:0;right:0;top:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:calc(10px + env(safe-area-inset-top)) 14px 0;pointer-events:none">
+      <a href="01 Signboard.dc.html" style="width:48px;height:48px;border-radius:50%;overflow:hidden;display:block;border:2px solid #FAF5E6;flex:none;pointer-events:auto"><img src="assets/logo.png" alt="NASU ICE CREAM" style="width:108%;height:108%;margin:-4%;object-fit:cover"></a>
+      <div style="flex:1;display:flex;gap:5px;background:#FAF5E6;border-radius:99px;padding:8px 10px;opacity:{{ barsOp }};transition:opacity .4s"><sc-for list="{{ bars }}" as="d" hint-placeholder-count="3"><div style="flex:1;height:5px;border-radius:5px;background:#2F4A3A;opacity:{{ d.dot }};transition:opacity .4s"></div></sc-for></div>
+      <a href="#cart" style="background:#FAF5E6;color:#2F4A3A;font-weight:700;font-size:13px;border-radius:99px;padding:13px 16px;flex:none;pointer-events:auto" style-hover="color:#2F4A3A">カート 0</a>
+    </header>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;showAd&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;adDelay&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.5,&quot;min&quot;:0.5,&quot;max&quot;:5,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;defaultTab&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;single&quot;,&quot;set&quot;],&quot;default&quot;:&quot;single&quot;,&quot;tsType&quot;:&quot;'single'|'set'&quot;},&quot;diagonal&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { tab: null, idx: { single: 0, set: 0 }, heroI: 0, adClosed: false };
+  componentDidMount() { this.rs = () => { if (window.innerHeight !== this.state.vh || window.innerWidth !== this.state.vw) this.setState({ vh: window.innerHeight, vw: window.innerWidth }); }; window.addEventListener('resize', this.rs); this.rs(); if (this.tab() === 'set') this.armAd(); this.ht = setInterval(() => this.setState(s => ({ heroI: (s.heroI + 1) % 4 })), 3500); }
+  componentWillUnmount() { clearInterval(this.ht); clearTimeout(this.adT); window.removeEventListener('resize', this.rs); }
+  onHero() { return this.tab() === 'single' && this.state.idx.single === 0; }
+  refs2 = { single: React.createRef(), set: React.createRef() };
+  scrollH = { single: () => this.onScr('single'), set: () => this.onScr('set') };
+  onScr(k) {
+    const el = this.refs2[k].current; if (!el) return;
+    const i = Math.round(el.scrollTop / el.clientHeight);
+    if (i !== this.state.idx[k]) this.setState(s => ({ idx: { ...s.idx, [k]: i } }));
+    if (k === 'set' || i > 0) this.armAd();
+  }
+  armAd() {
+    if (!this.adT) this.adT = setTimeout(() => this.setState({ adShown: true }), (this.props.adDelay ?? 1.5) * 1000);
+  }
+  tab() { return this.state.tab ?? this.props.defaultTab ?? 'single'; }
+  setTab(t) { if (t !== this.tab()) this.setState({ tab: t }); }
+  onDown = (e) => { this.p0 = { x: e.clientX, y: e.clientY }; };
+  onUp = (e) => { const p = this.p0; this.p0 = null; if (!p) return; const dx = e.clientX - p.x, dy = e.clientY - p.y; if (this.onHero() || Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.5) return; this.setTab(dx < 0 ? 'set' : 'single'); };
+  renderVals() {
+    const tab = this.tab(), diag = this.props.diagonal ?? false, adDelay = this.props.adDelay ?? 1.5, showAd = (this.props.showAd ?? true) && !this.state.adClosed, hero = this.onHero();
+    const heroSlides = ['assets/pistachio.png', 'assets/cookie.png', 'assets/pumpkin.png', 'assets/cups.png'].map((img, k) => ({ img, op: k === this.state.heroI ? 1 : 0, sc: k === this.state.heroI ? 1 : 1.1 }));
+    const toFlavors = () => { const el = this.refs2.single.current; if (el) el.scrollTo({ top: el.clientHeight, behavior: 'smooth' }); };
+    const D = {
+      single: [
+        { id: 'pistachio-berry', en: 'Pistachio & Berry', jp: 'ピスタチオ＆ベリー', head: '香ばしさと、\n甘ずっぱさの\nふたつの色。', desc: '香ばしいピスタチオに、甘ずっぱいベリーソースを重ねて。', price: '¥520', img: 'assets/pistachio.png', a: '#D42E6E', b: '#BBD08C', fa: '#FFFFFF', fb: '#24402F', sub: ['assets/shop.png', 'assets/cups.png'] },
+        { id: 'cookie-cream', en: 'Cookie & Cream', jp: 'クッキー＆クリーム', head: 'ざくざくの黒、\nとろける\nミルクの白。', desc: '濃いミルクアイスに、ざくざくのココアクッキーをたっぷり。', price: '¥480', img: 'assets/cookie.png', a: '#1C1917', b: '#FFFFFF', fa: '#F7F3EA', fb: '#1C1917', sub: ['assets/sign.png', 'assets/cups.png'] },
+        { id: 'pumpkin-honey', en: 'Honey & Pumpkin', jp: 'ハニー＆パンプキン', head: 'ほくほくかぼちゃに、\nはちみつを\nひとまわし。', desc: 'じっくり炊いたかぼちゃのペーストに、はちみつの甘さをマーブル。', price: '¥480', img: 'assets/pumpkin.png', a: '#F2B632', b: '#FFFDF5', fa: '#3A2A0A', fb: '#3A2A0A', sub: ['assets/shop.png', 'assets/sign.png'] }
+      ],
+      set: [
+        { id: 'assort-set', en: 'Assort Set', jp: 'おためし6個セット', head: '迷ったら、\nぜんぶ\nひと箱で。', desc: '人気のフレーバーを詰め合わせて、冷凍便でお届けします。', price: '¥2,980', img: 'assets/cups.png', a: '#2F4A3A', b: '#F4E7B5', fa: '#F4E7B5', fb: '#2F4A3A', sub: ['assets/shop.png', 'assets/sign.png'] },
+        { id: 'assort-12', en: 'Family Set', jp: 'たっぷり12個セット', head: 'みんなで\nわけあう\nごほうび箱。', desc: '人気のフレーバーをたっぷり12個。ギフトにもどうぞ。', price: '¥5,480', img: 'assets/cups.png', a: '#6E8B63', b: '#FAF5E6', fa: '#16261D', fb: '#2F4A3A', sub: ['assets/sign.png', 'assets/shop.png'] }
+      ]
+    };
+    const pos = [[86, 14, 'min(24cqw,30cqh)'], [9, 84, 'min(21cqw,26cqh)'], [92, 80, 'min(15cqw,19cqh)']];
+    const from = [[40, -40], [-50, 30], [50, 40]];
+    const build = (key) => {
+      const P = D[key], n = P.length, i = Math.min(this.state.idx[key] - (key === 'single' ? 1 : 0), n - 1), act = key === tab;
+      return P.map((p, k) => {
+        const cur = k === i, on = cur && act;
+        const subs = [p.img, p.sub[0], p.sub[1]].map((img, j) => ({ img, x: pos[j][0] + '%', y: pos[j][1] + '%', w: pos[j][2], pos: j === 0 ? '30% 70%' : '50% 50%', zoom: j === 0 ? 2 : 1, delay: (0.15 + j * 0.1) + 's', tf: 'translate(calc(-50% + ' + (on ? 0 : from[j][0]) + 'px),calc(-50% + ' + (on ? 0 : from[j][1]) + 'px)) scale(' + (on ? 1 : 0.6) + ')' }));
+        const side = key === 'set' ? '→ 単品へ' : '← セットへ';
+        return { ...p, subs, href: '#/products/' + p.id, no: '0' + (k + 1), label: (key === 'set' ? 'Set 0' : 'Flavor 0') + (k + 1), op: on ? 1 : 0, pe: on ? 'auto' : 'none', adY: on ? '0px' : '24px', adDelay: on ? adDelay + 's' : '0s', sc: on ? 1 : 0.8, ty: on ? '0px' : '24px', dot: cur ? 1 : 0.25, hint: (k < n - 1 ? (key === 'set' ? '↓ つぎのセット' : '↓ つぎの味') : (k + 1) + ' / ' + n) + '　' + side };
+      });
+    };
+    const panes = ['single', 'set'].map(k => ({ slides: build(k), heroDisp: k === 'single' ? 'flex' : 'none', ref: this.refs2[k], onScroll: this.scrollH[k] }));
+    const tabs = [['single', '単品'], ['set', 'セット']].map(([k, label]) => ({ label, bg: k === tab ? '#F4E7B5' : 'transparent', fg: k === tab ? '#2F4A3A' : '#F4E7B5', go: () => this.setTab(k) }));
+    const rib = !!this.state.adShown;
+    return { ribOp: rib ? 1 : 0, ribX: rib ? '0%' : '100%', ribPe: rib ? 'auto' : 'none', descDisp: (this.state.vh ?? 800) < 700 ? 'none' : 'block', headDisp: (this.state.vh ?? 800) < 620 ? 'none' : 'block', heroSlides, toFlavors, closeAd: () => this.setState({ adClosed: true }), adDisp: showAd ? 'flex' : 'none', barsOp: hero ? 0 : 1, footOp: hero ? 0 : 1, footY: hero ? '80px' : '0px', footPe: hero ? 'none' : 'auto', panes, tabs, bars: panes[tab === 'set' ? 1 : 0].slides, trackX: tab === 'set' ? '-50%' : '0%', onDown: this.onDown, onUp: this.onUp, clip: diag ? 'polygon(0 55%,100% 45%,100% 100%,0 100%)' : 'polygon(0 50%,100% 50%,100% 100%,0 100%)' };
+  }
+}
+</script>
+</body>
+</html>
